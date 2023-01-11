@@ -7,11 +7,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'client/dist'),
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'client/dist', 'index.html'),
-    }),
-  ],
+  plugins: [],
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },

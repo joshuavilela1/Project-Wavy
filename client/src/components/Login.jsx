@@ -3,8 +3,8 @@ import React from 'react';
 
 const { useState, useEffect } = React;
 
-function App() {
-  return <h1>Hello I Am App</h1>;
-}
+const Login = () => {
+  return <h1>Hello I Am Login</h1>;
+};
 
-export default App;
+export default Login;

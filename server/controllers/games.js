@@ -1,4 +1,5 @@
 const { Game, Login } = require('../db/games.js');
+const bcrypt = require('bcrypt');
 const {
   games: { getGamesDB, getGameDB, addGameDB, updateCountDB, addUserDB },
 } = require('../models');
@@ -41,7 +42,7 @@ module.exports = {
   },
 
   updateCount: (req, res) => {
-    updateCountDB(req.params, (err, results) => {
+    updateCountDB(req.body, (err, results) => {
       if (!err) {
         console.log(results);
         res.send(results).status(201);
@@ -53,10 +54,13 @@ module.exports = {
   },
 
   addUser: (req, res) => {
-    addUserDB(req.body, (err, results) => {
+    addUserDB(req.body, async (err, results) => {
       if (!err) {
         console.log(results);
-        const user = { name: results.name, password: results.password };
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(results.password, salt);
+        const user = { user: results.user, password: hashedPassword };
+        console.log(hashedPassword);
         res.send(user).status(201);
       } else {
         console.error(err);

@@ -1,9 +1,8 @@
 require('dotenv').config();
 const { mongoose, Schema } = require('mongoose');
 
-mongoose.connect(`mongodb://127.0.0.1:27017/${process.env.DB_NAME}`);
-
 mongoose.set('strictQuery', false);
+mongoose.connect(`mongodb://127.0.0.1:27017/${process.env.DB_NAME}`);
 
 const loginSchema = new Schema({
   user: String,
@@ -34,7 +33,7 @@ const Game = new mongoose.model('game', gameSchema);
 //     genre: ['Action-adventure', 'Puzzle', 'Open-World', 'Action'],
 //     votes: 0,
 //     image_url:
-//       'https://imgix.ranker.com/user_node_img/4269/85372037/original/85372037-photo-u40?auto=format&q=60&fit=crop&fm=pjpg&dpr=2&crop=faces&h=150&w=150',
+//       'https://imgix.ranker.com/user_node_img/4269/85372037/original/85372037-photo-u40',
 //   });
 //   await newgame.save();
 //   console.log(newgame);

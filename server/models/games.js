@@ -35,7 +35,8 @@ module.exports = {
   },
 
   updateCountDB: (data, cb) => {
-    Game.updateOne(data, (err, results) => {
+    data.votes++;
+    Game.updateOne({ _id: data._id }, data, (err, results) => {
       if (!err) {
         cb(null, results);
       } else {
