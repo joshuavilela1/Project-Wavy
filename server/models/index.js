@@ -1,1 +1,1 @@
-models.exports.games = require('./games.js');
+module.exports.games = require('./games.js');

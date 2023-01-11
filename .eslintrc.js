@@ -7,9 +7,10 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'plugin:jest/recommended',
-    'airbnb'
+    'airbnb',
   ],
-  overrides: [],
+  overrides: [
+  ],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
