@@ -11,6 +11,9 @@ router.get('/gamesfeed', (req, res) => {
 router.get('/rankings', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
+router.get('/addgame', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
 
 router.get('/api/games', getGames);
 router.get('/api/games/:gameid', getGame);

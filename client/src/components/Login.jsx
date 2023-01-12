@@ -17,22 +17,22 @@ const { useState, useEffect } = React;
 {
   /* <Typography variant="h1">This is Login</Typography>; */
 }
-const Login = () => {
-  const [user, setUser] = useState('');
+const Login = ({ user, setUser, setIsLoggedIn }) => {
+  const [isSignup, setIsSignup] = useState(false);
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [isSignup, setIsSignup] = useState(false);
 
-  const submitHandler = (e) => {
+  const clickHandler = (e) => {
     e.preventDefault();
     console.log(password);
     console.log(email);
     console.log(user);
+    setIsLoggedIn(true);
   };
 
   return (
     <div>
-      <form onSubmit={submitHandler}>
+      <form>
         <Box
           display="flex"
           flexDirection={'column'}
@@ -57,7 +57,11 @@ const Login = () => {
             <InputLabel>
               <Typography>Username:</Typography>
             </InputLabel>
-            <Input required onChange={(e) => setUser(e.target.value)} />
+            <Input
+              required
+              type={'text'}
+              onChange={(e) => setUser(e.target.value)}
+            />
           </FormControl>
           {isSignup && (
             <FormControl margin="normal">
@@ -77,12 +81,12 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </FormControl>
-          {user.length === 0 && password.length === 0 ? (
+          {user.length === 0 || password.length === 0 ? (
             <Button
               sx={{ marginTop: 3, borderRadius: 3 }}
               variant="contained"
               color="primary"
-              type="submit"
+              onClick={clickHandler}
             >
               {isSignup ? 'Register' : 'Login'}
             </Button>
@@ -92,7 +96,7 @@ const Login = () => {
                 sx={{ marginTop: 3, borderRadius: 3 }}
                 variant="contained"
                 color="primary"
-                type="submit"
+                onClick={() => setIsLoggedIn(true)}
               >
                 {isSignup ? 'Register' : 'Login'}
               </Button>

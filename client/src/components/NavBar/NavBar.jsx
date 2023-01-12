@@ -1,24 +1,34 @@
 import axios from 'axios';
 import React from 'react';
-import { Grid, AppBar, Toolbar, Typography, Tabs, Tab } from '@mui/material';
+import {
+  Grid,
+  AppBar,
+  Toolbar,
+  Typography,
+  Tabs,
+  Tab,
+  Box,
+  Button,
+} from '@mui/material';
 import GamesIcon from '@mui/icons-material/Games';
 import { Link } from 'react-router-dom';
+import DrawerComp from './DrawerComp.jsx';
 
 const { useState, useEffect } = React;
 
-const NavBar = () => {
+const NavBar = ({ user, isLoggedIn, setIsLoggedIn }) => {
   const [value, setValue] = useState('one');
 
   return (
-    <AppBar>
+    <AppBar sx={{ background: '#2E5EAA' }}>
       <Toolbar>
-        <Grid container>
+        <Grid sx={{ placeItems: 'center' }} container>
           <Grid item xs={2}>
             <Typography>
               <GamesIcon />
             </Typography>
           </Grid>
-          <Grid item xs={7}>
+          <Grid item xs={6}>
             <Tabs
               textColor="inherit"
               indicatorColor="secondary"
@@ -45,22 +55,32 @@ const NavBar = () => {
               />
             </Tabs>
           </Grid>
+          <Grid item xs={1} />
+          <Grid item xs={3}>
+            <Box display="flex">
+              {isLoggedIn ? (
+                <Typography variant="h4" sx={{ marginLeft: 'auto' }}>
+                  Hello, {user}
+                </Typography>
+              ) : null}
+              {isLoggedIn ? (
+                <Link to="/">
+                  <Button
+                    sx={{ marginLeft: 3 }}
+                    variant="contained"
+                    onClick={() => setIsLoggedIn(false)}
+                  >
+                    Sign Out
+                  </Button>
+                </Link>
+              ) : null}
+            </Box>
+          </Grid>
         </Grid>
+        {/* <DrawerComp /> */}
       </Toolbar>
     </AppBar>
   );
 };
-// Hello I Am NavBar
-// <List>
-//   <ListItem>
-//     <Link to="/gamesfeed">Games Leaderboard</Link>
-//   </ListItem>
-//   <ListItem>
-//     <Link to="/Rankings">Rankings</Link>
-//   </ListItem>
-//   <ListItem>
-//     <Link to="/addgame">Add a Game</Link>
-//   </ListItem>
-// </List>
 
 export default NavBar;
