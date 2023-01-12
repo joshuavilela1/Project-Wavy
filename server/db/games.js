@@ -7,6 +7,7 @@ mongoose.connect(`mongodb://127.0.0.1:27017/${process.env.DB_NAME}`);
 const loginSchema = new Schema({
   user: String,
   password: String,
+  email: String,
 });
 
 const gameSchema = new Schema(

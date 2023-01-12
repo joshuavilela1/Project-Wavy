@@ -5,9 +5,15 @@ const cors = require('cors');
 const path = require('path');
 const router = require('./routes');
 
+const corsOptions = {
+  origin: '*',
+  credentials: true,
+  optionSuccessStatus: 200,
+};
+
 const app = express();
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
