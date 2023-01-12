@@ -15,14 +15,29 @@ const App = () => {
   const [user, setUser] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [games, setGames] = useState([]);
+  const [game1, setGame1] = useState({});
+  const [game2, setGame2] = useState({});
   const [forceUpdate, setForceUpdate] = useState(false);
+  const [vote, setVote] = useState(false);
 
   useEffect(() => {
-    axios.get('/api/games').then((response) => {
-      console.log(response.data);
-      setGames(response.data);
-    });
-  }, [forceUpdate]);
+    axios
+      .get('/api/games')
+      .then((response) => {
+        console.log(response.data);
+        let rand1 = Math.floor(Math.random() * response.data.length);
+        let rand2 = Math.floor(Math.random() * response.data.length);
+        if (rand1 === rand2) {
+          let rand2 = Math.floor(Math.random() * response.data.length);
+        }
+        setGame1(response.data[rand1]);
+        setGame2(response.data[rand2]);
+        setGames(response.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [forceUpdate, vote]);
 
   return (
     <>
@@ -62,7 +77,19 @@ const App = () => {
           }
         />
         <Route path="/gamesfeed" element={<GamesFeed games={games} />} />
-        <Route path="/rankings" element={<Rankings />} />
+        <Route
+          path="/rankings"
+          element={
+            <Rankings
+              game1={game1}
+              game2={game2}
+              forceUpdate={forceUpdate}
+              setForceUpdate={setForceUpdate}
+              vote={vote}
+              setVote={setVote}
+            />
+          }
+        />
       </Routes>
     </>
   );

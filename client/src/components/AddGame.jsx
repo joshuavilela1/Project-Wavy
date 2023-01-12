@@ -43,8 +43,6 @@ const AddGame = ({ forceUpdate, setForceUpdate }) => {
       });
   };
 
-  console.log(document.getElementById('game-name'));
-
   return (
     <div>
       <form>
