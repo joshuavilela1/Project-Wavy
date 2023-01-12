@@ -16,8 +16,13 @@ import DrawerComp from './DrawerComp.jsx';
 
 const { useState, useEffect } = React;
 
-const NavBar = ({ user, isLoggedIn, setIsLoggedIn }) => {
+const NavBar = ({ user, isLoggedIn, setIsLoggedIn, navLog, setNavLog }) => {
   const [value, setValue] = useState('one');
+
+  const clickHandler = (e) => {
+    setIsLoggedIn(false);
+    setNavLog(false);
+  };
 
   return (
     <AppBar sx={{ background: '#2E5EAA' }}>
@@ -68,22 +73,22 @@ const NavBar = ({ user, isLoggedIn, setIsLoggedIn }) => {
                   <Button
                     sx={{ marginLeft: 3 }}
                     variant="contained"
-                    onClick={() => setIsLoggedIn(false)}
+                    onClick={clickHandler}
                   >
                     Sign Out
                   </Button>
                 </Link>
-              ) : (
+              ) : navLog ? (
                 <Link to="/">
                   <Button
                     sx={{ marginLeft: 3 }}
                     variant="contained"
-                    // onClick={() => setIsLoggedIn(false)}
+                    onClick={clickHandler}
                   >
                     Log in
                   </Button>
                 </Link>
-              )}
+              ) : null}
             </Box>
           </Grid>
         </Grid>

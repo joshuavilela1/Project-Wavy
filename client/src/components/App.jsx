@@ -19,20 +19,24 @@ const App = () => {
   const [game2, setGame2] = useState({});
   const [forceUpdate, setForceUpdate] = useState(false);
   const [vote, setVote] = useState(false);
+  const [navLog, setNavLog] = useState(true);
 
   useEffect(() => {
     axios
       .get('/api/games')
       .then((response) => {
-        console.log(response.data);
+        const sortedData = response.data.sort((a, b) => b.votes - a.votes);
         let rand1 = Math.floor(Math.random() * response.data.length);
         let rand2 = Math.floor(Math.random() * response.data.length);
-        if (rand1 === rand2) {
+        while (rand1 === rand2) {
           let rand2 = Math.floor(Math.random() * response.data.length);
+          if (rand1 !== rand2) {
+            break;
+          }
         }
         setGame1(response.data[rand1]);
         setGame2(response.data[rand2]);
-        setGames(response.data);
+        setGames(sortedData);
       })
       .catch((err) => {
         console.error(err);
@@ -40,13 +44,17 @@ const App = () => {
   }, [forceUpdate, vote]);
 
   return (
-    <>
+    <Box
+      display="flex"
+      sx={{ background: '#0A2239', height: '100%', width: '100%' }}
+    >
       <h1
         style={{
           fontSize: '72px',
           fontFamily: 'Roboto',
           textAlign: 'center',
-          paddingTop: '48px',
+          paddingTop: '24px',
+          marginBottom: '4px',
         }}
       >
         Hack R(e)anker
@@ -55,6 +63,8 @@ const App = () => {
         user={user}
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
+        navLog={navLog}
+        setNavLog={setNavLog}
       />
       <Routes>
         <Route
@@ -64,6 +74,8 @@ const App = () => {
               user={user}
               setUser={setUser}
               setIsLoggedIn={setIsLoggedIn}
+              navLog={navLog}
+              setNavLog={setNavLog}
             />
           }
         />
@@ -91,7 +103,7 @@ const App = () => {
           }
         />
       </Routes>
-    </>
+    </Box>
   );
 };
 

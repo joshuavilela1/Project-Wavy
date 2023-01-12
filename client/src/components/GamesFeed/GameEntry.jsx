@@ -11,9 +11,9 @@ const GameEntry = ({ game }) => {
       sx={{
         paddingBottom: 2,
         paddingTop: 2,
-        border: 2,
+        borderBottom: 2,
         marginBottom: 4,
-        minWidth: 700,
+        minWidth: 750,
       }}
     >
       <Box

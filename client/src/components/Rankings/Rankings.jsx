@@ -77,9 +77,9 @@ const Rankings = ({
       </Button>
       <Box
         display="flex"
-        maxWidth={1200}
         alignItems="center"
         justifyContent={'space-around'}
+        minWidth={1500}
         margin="auto"
         marginTop={5}
         padding={5}
