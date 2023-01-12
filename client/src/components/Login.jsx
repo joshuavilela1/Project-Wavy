@@ -22,8 +22,21 @@ const Login = ({ user, setUser, setIsLoggedIn }) => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
 
-  const clickHandler = (e) => {
+  const loginHandler = (e) => {
     setIsLoggedIn(true);
+  };
+
+  const registerHandler = (e) => {
+    axios
+      .post('/api/users', {
+        user: user,
+        password: password,
+        email: email,
+      })
+      .then((response) => {
+        console.log(response);
+        setIsLoggedIn(true);
+      });
   };
 
   return (
@@ -85,7 +98,7 @@ const Login = ({ user, setUser, setIsLoggedIn }) => {
               sx={{ marginTop: 3, borderRadius: 3 }}
               variant="contained"
               color="primary"
-              onClick={clickHandler}
+              onClick={loginHandler}
             >
               {isSignup ? 'Register' : 'Login'}
             </Button>
@@ -95,7 +108,7 @@ const Login = ({ user, setUser, setIsLoggedIn }) => {
                 sx={{ marginTop: 3, borderRadius: 3 }}
                 variant="contained"
                 color="primary"
-                onClick={clickHandler}
+                onClick={isSignup ? registerHandler : loginHandler}
               >
                 {isSignup ? 'Register' : 'Login'}
               </Button>

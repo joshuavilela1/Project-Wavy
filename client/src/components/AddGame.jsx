@@ -65,7 +65,7 @@ const AddGame = ({ forceUpdate, setForceUpdate }) => {
           // }}
         >
           <Typography variant="h3" padding={3}>
-            Post new game
+            Add a Game
           </Typography>
           <FormControl margin="normal">
             <InputLabel>
