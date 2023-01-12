@@ -14,10 +14,15 @@ const { useState, useEffect } = React;
 const App = () => {
   const [user, setUser] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [games, setGames] = useState([]);
+  const [forceUpdate, setForceUpdate] = useState(false);
 
-  // useEffect(() => {
-  //   setIsLoggedIn(false);
-  // }, []);
+  useEffect(() => {
+    axios.get('/api/games').then((response) => {
+      console.log(response.data);
+      setGames(response.data);
+    });
+  }, [forceUpdate]);
 
   return (
     <>
@@ -31,13 +36,11 @@ const App = () => {
       >
         Hack R(e)anker
       </h1>
-      {isLoggedIn ? (
-        <NavBar
-          user={user}
-          isLoggedIn={isLoggedIn}
-          setIsLoggedIn={setIsLoggedIn}
-        />
-      ) : null}
+      <NavBar
+        user={user}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+      />
       <Routes>
         <Route
           path="/"
@@ -49,8 +52,16 @@ const App = () => {
             />
           }
         />
-        <Route path="/addgame" element={<AddGame />} />
-        <Route path="/gamesfeed" element={<GamesFeed />} />
+        <Route
+          path="/addgame"
+          element={
+            <AddGame
+              forceUpdate={forceUpdate}
+              setForceUpdate={setForceUpdate}
+            />
+          }
+        />
+        <Route path="/gamesfeed" element={<GamesFeed games={games} />} />
         <Route path="/rankings" element={<Rankings />} />
       </Routes>
     </>

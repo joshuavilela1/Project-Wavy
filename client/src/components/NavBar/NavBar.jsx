@@ -73,7 +73,17 @@ const NavBar = ({ user, isLoggedIn, setIsLoggedIn }) => {
                     Sign Out
                   </Button>
                 </Link>
-              ) : null}
+              ) : (
+                <Link to="/">
+                  <Button
+                    sx={{ marginLeft: 3 }}
+                    variant="contained"
+                    // onClick={() => setIsLoggedIn(false)}
+                  >
+                    Log in
+                  </Button>
+                </Link>
+              )}
             </Box>
           </Grid>
         </Grid>

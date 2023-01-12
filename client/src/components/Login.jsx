@@ -23,10 +23,6 @@ const Login = ({ user, setUser, setIsLoggedIn }) => {
   const [email, setEmail] = useState('');
 
   const clickHandler = (e) => {
-    e.preventDefault();
-    console.log(password);
-    console.log(email);
-    console.log(user);
     setIsLoggedIn(true);
   };
 
@@ -96,7 +92,7 @@ const Login = ({ user, setUser, setIsLoggedIn }) => {
                 sx={{ marginTop: 3, borderRadius: 3 }}
                 variant="contained"
                 color="primary"
-                onClick={() => setIsLoggedIn(true)}
+                onClick={clickHandler}
               >
                 {isSignup ? 'Register' : 'Login'}
               </Button>

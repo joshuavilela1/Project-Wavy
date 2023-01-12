@@ -14,32 +14,36 @@ import {
 
 const { useState, useEffect } = React;
 
-const AddGame = () => {
-  const [name, setName] = useState('');
+const AddGame = ({ forceUpdate, setForceUpdate }) => {
+  const [gamename, setGameName] = useState('');
   const [genre, setGenre] = useState('');
   const [url, setUrl] = useState('');
   const [posted, setPosted] = useState(false);
 
-  useEffect(() => {}, []);
-
   const clickHandler = (e) => {
+    e.preventDefault();
     const genreArray = [];
     genreArray.push(genre);
-    e.target.reset();
     axios
       .post('/api/games', {
-        name: name,
-        genre: urlArray,
+        name: gamename,
+        genre: genreArray,
         image_url: url,
       })
       .then((response) => {
         console.log(response);
-        setPosted(true);
+        alert('Game has been posted!');
+        document.getElementById('game-name').value = '';
+        document.getElementById('genre').value = '';
+        document.getElementById('image_url').value = '';
+        setForceUpdate(!forceUpdate);
       })
       .catch((err) => {
         console.error(err);
       });
   };
+
+  console.log(document.getElementById('game-name'));
 
   return (
     <div>
@@ -70,29 +74,34 @@ const AddGame = () => {
             </InputLabel>
             <Input
               required
+              id="game-name"
               type={'text'}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setGameName(e.target.value)}
+              value={gamename}
             />
           </FormControl>
           <FormControl margin="normal">
             <InputLabel> Genre: </InputLabel>
             <Input
+              id="genre"
               type={'text'}
               required
               onChange={(e) => setGenre(e.target.value)}
+              value={genre}
             />
           </FormControl>
           <FormControl margin="normal">
             <InputLabel> Game Image URL: </InputLabel>
             <Input
+              id="image_url"
               type={'text'}
               required
               onChange={(e) => setUrl(e.target.value)}
+              value={url}
             />
           </FormControl>
           <Button
             sx={{ marginTop: 3, borderRadius: 3 }}
-            type="submit"
             variant="contained"
             color="primary"
             onClick={clickHandler}
